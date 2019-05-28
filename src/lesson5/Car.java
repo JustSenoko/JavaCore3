@@ -1,12 +1,10 @@
 package lesson5;
 
 import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 
 public class Car implements Runnable {
     private static int CARS_COUNT;
-    private CountDownLatch cdlRaceFinish;
     private CyclicBarrier cbRaceStart;
 
     static {
@@ -21,11 +19,10 @@ public class Car implements Runnable {
     int getSpeed() {
         return speed;
     }
-    Car(Race race, int speed, CyclicBarrier cbRaceStart, CountDownLatch cdlRaceFinish) {
+    Car(Race race, int speed, CyclicBarrier cbRaceStart) {
         this.race = race;
         this.speed = speed;
         this.cbRaceStart = cbRaceStart;
-        this.cdlRaceFinish = cdlRaceFinish;
 
         CARS_COUNT++;
         this.name = "Участник #" + CARS_COUNT;
@@ -36,13 +33,11 @@ public class Car implements Runnable {
             System.out.println(this.name + " готовится");
             Thread.sleep(500 + (int) (Math.random() * 800));
             System.out.println(this.name + " готов");
-            if (cbRaceStart.getParties() == cbRaceStart.getNumberWaiting() + 1) {
-                System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
+            cbRaceStart.await();
             cbRaceStart.await();
         } catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
@@ -50,7 +45,11 @@ public class Car implements Runnable {
         for (int i = 0; i < race.getStages().size(); i++) {
             race.getStages().get(i).go(this);
         }
-        cdlRaceFinish.countDown();
+        try {
+            cbRaceStart.await();
+        } catch (InterruptedException | BrokenBarrierException e) {
+            e.printStackTrace();
+        }
     }
 }
 
