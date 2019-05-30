@@ -21,12 +21,13 @@ public class Task2Test {
     }
 
     @Parameterized.Parameters
-    public static Collection<Object[][]> data() {
-        return Arrays.asList(new Object[][][] {
-                {{1,2,3,4,5,6}, {5,6}},
-                {{1,4,4,4,6,8,4}, {}},
-                {{5,2,4,7,7,7}, {7,7,7}},
-                {{3,4,5}, {5}}
+    public static Collection<Object[]> data() {
+
+        return Arrays.asList(new Object[][]{
+                {new int[]{1, 2, 3, 4, 5, 6}, new int[]{5, 6}},
+                {new int[]{1, 4, 4, 4, 6, 8, 4}, new int[]{}},
+                {new int[]{5, 2, 4, 7, 7, 7}, new int[]{7, 7, 7}},
+                {new int[]{3, 4, 5}, new int[]{5}}
         });
     }
 
@@ -34,11 +35,8 @@ public class Task2Test {
     public void testTask2() {
         Assert.assertArrayEquals(result, task2(arr, 4));
     }
-
-//    @Test(expected = RuntimeException.class)
-//    public void testTask2Exception() {
-//        int[] res = {1,2,3};
-//        int[] arrException = {1,2,3,5};
-//        Assert.assertArrayEquals(res, task2(arrException, 4));
-//    }
 }
+
+
+
+

@@ -20,19 +20,19 @@ public class Task3Test {
         this.result = result;
     }
 
-//    @Parameterized.Parameters
-//    public static Collection<Object[][]> data() {
-//        return Arrays.asList(new Object[][] {
-//                {{1,1,1,4,4,4}, true},
-//                {{1,4,4,4,1,1}, true},
-//                {{1,1,1}, false},
-//                {{4}, false}
-//        });
-//    }
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+
+        return Arrays.asList(new Object[][]{
+                {new int[]{1,1,1,4}, true},
+                {new int[]{1,4,1}, true},
+                {new int[]{1,1,1,1}, false},
+                {new int[]{4}, false}
+        });
+    }
 
     @Test
     public void testTask3() {
         Assert.assertEquals(result, task3(arr, 1, 4));
     }
-
 }

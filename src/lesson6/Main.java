@@ -19,7 +19,7 @@ public class Main {
         System.out.println(task3(arr2, 1, 4));
     }
 
-    public static int[] task2(int[] arr, int number) throws RuntimeException {
+    static int[] task2(int[] arr, int number) throws RuntimeException {
 
         int index = find(arr, number);
 
@@ -31,7 +31,6 @@ public class Main {
     }
 
     static boolean task3(int[] arr, int number1, int number2) {
-
         return (find(arr, number1) != -1 && find(arr, number2) != -1);
     }
 
